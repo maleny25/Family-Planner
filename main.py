@@ -18,10 +18,8 @@ class MainHandler(webapp2.RequestHandler):
       email_address = user.nickname()
       cssi_user = CssiUser.query().filter(CssiUser.email == email_address).get()
       if cssi_user:
-        # page =  urllib.urlopen('calendar.html').read()
-        # self.response.write(page)
         self.response.write(signout_link_html)
-        calendar_template= the_jinja_env.get_template('calendar.html')
+        calendar_template= the_jinja_env.get_template('/calendar.html')
         first_name=cssi_user.first_name
         calendar_dict={
         "first_name":first_name
@@ -49,10 +47,16 @@ class MainHandler(webapp2.RequestHandler):
         last_name=self.request.get('last_name'),
         email=user.nickname())
     cssi_user.put()
-    self.response.write('Thanks for signing up, %s! <br><a href="/">Home</a>' %
-        cssi_user.first_name)
+    profile_template= the_jinja_env.get_template('profile.html')
+    #self.response.write('Thanks for signing up, %s! <br><a href="/">Home</a>' %
+        #cssi_user.first_name)
+    self.response.write(profile_template.render())
 
 class Calendar(webapp2.RequestHandler):
+    def get(self):
+        self.response.write('hello')
+
+class Profile(webapp2.RequestHandler):
     def get(self):
         self.response.write('hello')
 
@@ -60,4 +64,5 @@ class Calendar(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
   ('/calendar', Calendar),
+  ('/profile', Profile),
 ], debug=True)
