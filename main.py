@@ -1,7 +1,14 @@
 import webapp2
+import jinja2
+import os
 from google.appengine.api import users
 from login import CssiUser
 import urllib
+
+the_jinja_env= jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions=['jinja2.ext.autoescape'],
+    autoescape=True)
 
 class MainHandler(webapp2.RequestHandler):
   def get(self):
@@ -11,10 +18,15 @@ class MainHandler(webapp2.RequestHandler):
       email_address = user.nickname()
       cssi_user = CssiUser.query().filter(CssiUser.email == email_address).get()
       if cssi_user:
-        page =  urllib.urlopen('calendar.html').read()
-        self.response.write(page)
+        # page =  urllib.urlopen('calendar.html').read()
+        # self.response.write(page)
         self.response.write(signout_link_html)
-
+        calendar_template= the_jinja_env.get_template('calendar.html')
+        first_name=cssi_user.first_name
+        calendar_dict={
+        "first_name":first_name
+        }
+        self.response.write(calendar_template.render(calendar_dict))
       else:
         self.response.write('''
             Welcome to our site, %s!  Please sign up! <br>
@@ -28,6 +40,7 @@ class MainHandler(webapp2.RequestHandler):
       login_url = users.create_login_url('/')
       login_html_element = '<a href="%s">Sign in</a>' % login_url
       self.response.write('Please log in.<br>' + login_html_element)
+
 
   def post(self):
     user = users.get_current_user()
