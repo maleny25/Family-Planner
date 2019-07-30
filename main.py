@@ -19,7 +19,7 @@ class MainHandler(webapp2.RequestHandler):
       cssi_user = CssiUser.query().filter(CssiUser.email == email_address).get()
       if cssi_user:
         self.response.write(signout_link_html)
-        calendar_template= the_jinja_env.get_template('/calendar.html')
+        calendar_template= the_jinja_env.get_template('templates/calendar.html')
         first_name=cssi_user.first_name
         calendar_dict={
         "first_name":first_name
@@ -47,19 +47,43 @@ class MainHandler(webapp2.RequestHandler):
         last_name=self.request.get('last_name'),
         email=user.nickname())
     cssi_user.put()
-    profile_template= the_jinja_env.get_template('profile.html')
-    #self.response.write('Thanks for signing up, %s! <br><a href="/">Home</a>' %
-        #cssi_user.first_name)
-    self.response.write(profile_template.render())
+    profile_template= the_jinja_env.get_template('templates/profile.html')
+    profile_dict={
+    "last_name": cssi_user.last_name
+    }
+    self.response.write(profile_template.render(profile_dict))
 
 class Calendar(webapp2.RequestHandler):
     def get(self):
-        self.response.write('hello')
+        calendar_template=the_jinja_env.get_template('templates/calendar.html')
+        self.response.write(calendar_template.render())
+    def post(self):
+        calendar_template=the_jinja_env.get_template('templates/calendar.html')
+        user=users.get_current_user()
+        self.response.write(calendar_template.render())
 
 class Profile(webapp2.RequestHandler):
     def get(self):
-        self.response.write('hello')
+        user1 = users.get_current_user().nickname()
+        user = CssiUser.query().filter(CssiUser.email== user1).get()
+        last_name=user.get_current_user().last_name()
+        profile_template= the_jinja_env.get_template('templates/profile.html')
+        profile_dict={
+        "last_name": last_name,
+        }
+        self.response.write(profile_template.render(profile_dict))
 
+    def post(self):
+        cssi_user = CssiUser(
+            first_name=self.request.get('first_name'),
+            last_name=self.request.get('last_name'),
+            email=user.nickname())
+        cssi_user.put()
+        profile_template= the_jinja_env.get_template('templates/profile.html')
+        profile_dict={
+        "last_name": cssi_user.last_name
+        }
+        self.response.write(profile_template.render(profile_dict))
 
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
