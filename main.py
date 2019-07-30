@@ -25,8 +25,17 @@ class MainHandler(webapp2.RequestHandler):
       email_address = current_user.email()
       user = User.query().filter(User.email == email_address).get()
       if user:
-          self.redirect("/calendar")
-        
+        self.redirect("/calendar")
+        # self.response.write(signout_link_html)
+        # calendar_template= the_jinja_env.get_template('templates/calendar.html')
+        # first_name=user.first_name
+        # family= load_family_by_email(users.get_current_user().email())
+        # calendar_dict={
+        # "first_name":first_name,
+        # "family": family
+        # }
+
+        # self.response.write(calendar_template.render(calendar_dict))
       else:
         self.response.write('''
             Welcome to our site, %s!  Please sign up! <br>
@@ -62,21 +71,27 @@ class MainHandler(webapp2.RequestHandler):
 
 class Calendar(webapp2.RequestHandler):
     def get(self):
+        signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
+        self.response.write(signout_link_html)
         calendar_template=the_jinja_env.get_template('templates/calendar.html')
         user=users.get_current_user()
+        signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
         family= load_family_by_email(users.get_current_user().email())
         calendar_dict={
         "family": family,
         }
         self.response.write(calendar_template.render(calendar_dict))
+        # self.response.write(signout_link_html)
         # self.response.write(calendar_template.render())
     def post(self):
         calendar_template=the_jinja_env.get_template('templates/calendar.html')
         user=users.get_current_user()
+        signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
         family= load_family_by_email(users.get_current_user().email())
         calendar_dict={
         "family": family,
         }
+        self.response.write(signout_link_html)
         self.response.write(calendar_template.render(calendar_dict))
 
 class Profile(webapp2.RequestHandler):
