@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -8,13 +10,13 @@
     <h1>Welcome {{last_name}} family!</h1>
     <h2>Family members</h2>
     <ul>
-      <li>one</li>
-      <li>two</li>
+      {% for member in family.members %}
+        {% set user=member.get() %}
+        <li> {{user.first_name}} {{user.last_name}} </li>
+      {% endfor %}
     </ul>
     <h3>Add a new family member</h3>
     <form action="/profile" method="post">
-
-
       First Name:
       <input type="text" name="Firstname" value=""></input> <br><br>
       Last Name:
@@ -22,6 +24,9 @@
       Email:
       <input type="text" name="email" value=""></input> <br><br>
       <input type="submit" name="" value="Add Family Member!">
+    </form>
+    <form class="" action="/calendar" method="post">
+        <input type="Submit" name="calButton" value="To Calendar">
     </form>
   </body>
 </html>
