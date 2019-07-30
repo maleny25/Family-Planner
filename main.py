@@ -10,12 +10,13 @@ the_jinja_env= jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+
 class MainHandler(webapp2.RequestHandler):
   def get(self):
     user = users.get_current_user()
     if user:
       signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
-      email_address = user.nickname()
+      email_address = user.email()
       cssi_user = CssiUser.query().filter(CssiUser.email == email_address).get()
       if cssi_user:
         self.response.write(signout_link_html)
@@ -29,8 +30,9 @@ class MainHandler(webapp2.RequestHandler):
         self.response.write('''
             Welcome to our site, %s!  Please sign up! <br>
             <form method="post" action="/">
-            First Name: <input type="text" name="first_name">
-            Last Name: <input type="text" name="last_name">
+            First Name: <input type="text" name="first_name"> <br>
+            Last Name: <input type="text" name="last_name"> <br>
+            Email:<input type="text name="email" <br>
             <input type="submit">
             </form><br> %s <br>
             ''' % (email_address, signout_link_html))
@@ -45,7 +47,7 @@ class MainHandler(webapp2.RequestHandler):
     cssi_user = CssiUser(
         first_name=self.request.get('first_name'),
         last_name=self.request.get('last_name'),
-        email=user.nickname())
+        email=user.email())
     cssi_user.put()
     profile_template= the_jinja_env.get_template('templates/profile.html')
     profile_dict={
@@ -75,9 +77,9 @@ class Profile(webapp2.RequestHandler):
 
     def post(self):
         cssi_user = CssiUser(
-            first_name=self.request.get('first_name'),
-            last_name=self.request.get('last_name'),
-            email=user.nickname())
+            first_name=self.request.get('Firstname'),
+            last_name=self.request.get('Lastname'),
+            email=self.request.get('email'))
         cssi_user.put()
         profile_template= the_jinja_env.get_template('templates/profile.html')
         profile_dict={
