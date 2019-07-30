@@ -19,6 +19,38 @@
     <!-- [EVENT] -->
     <div id="cal-event"></div>
   </div>
+
+  <form action="/family" method="post">
+        Name of Event:
+        <br>
+        <input type="text" name="event" value="Event">
+        <br>
+        Event Date:
+        <br>
+        <div id="event-date">
+          <select id="cal-day"></select>
+          <select id="cal-mth"></select>
+          <select id="cal-yr"></select>
+          <input id="cal-set" type="button" value="SET"/>
+        </div>
+        <br>
+        Select your family member:
+        <br>
+        <!--change name later  -->
+        <select name="family">
+            {% for member in family.members %}
+              {% set user=member.get() %}
+               <option value="{{member}}">{{user.first_name}}</option>
+            {% endfor %}
+
+        </select>
+        <br>
+        <input type="submit" value="Add event">
+        <br>
+        <br>
+
+      </form>
+
   <form action="/profile" method="get">
     <input type="submit" name="" value="Profile">
   </form>

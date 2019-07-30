@@ -25,13 +25,8 @@ class MainHandler(webapp2.RequestHandler):
       email_address = current_user.email()
       user = User.query().filter(User.email == email_address).get()
       if user:
-        self.response.write(signout_link_html)
-        calendar_template= the_jinja_env.get_template('templates/calendar.html')
-        first_name=user.first_name
-        calendar_dict={
-        "first_name":first_name
-        }
-        self.response.write(calendar_template.render(calendar_dict))
+          self.redirect("/calendar")
+        
       else:
         self.response.write('''
             Welcome to our site, %s!  Please sign up! <br>
@@ -68,11 +63,21 @@ class MainHandler(webapp2.RequestHandler):
 class Calendar(webapp2.RequestHandler):
     def get(self):
         calendar_template=the_jinja_env.get_template('templates/calendar.html')
-        self.response.write(calendar_template.render())
+        user=users.get_current_user()
+        family= load_family_by_email(users.get_current_user().email())
+        calendar_dict={
+        "family": family,
+        }
+        self.response.write(calendar_template.render(calendar_dict))
+        # self.response.write(calendar_template.render())
     def post(self):
         calendar_template=the_jinja_env.get_template('templates/calendar.html')
         user=users.get_current_user()
-        self.response.write(calendar_template.render())
+        family= load_family_by_email(users.get_current_user().email())
+        calendar_dict={
+        "family": family,
+        }
+        self.response.write(calendar_template.render(calendar_dict))
 
 class Profile(webapp2.RequestHandler):
     def get(self):
