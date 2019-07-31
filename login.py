@@ -16,3 +16,5 @@ class Family (ndb.Model):
 class Event (ndb.Model):
     owner = ndb.KeyProperty(User)
     # maybe fix
+class ToDo(ndb.Model):
+    owner=ndb.KeyProperty(User)
