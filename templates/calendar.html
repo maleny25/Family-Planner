@@ -20,19 +20,17 @@
     <div id="cal-event"></div>
   </div>
 
-  <form action="/family" method="post">
+  <form action="/calendar" method="post">
         Name of Event:
         <br>
-        <input type="text" name="event" value="Event">
+        <input type="text" name="event_name" value="Event">
         <br>
         Event Date:
         <div id="cal1-date">
-          <select id="cal1-day"></select>
-          <select id="cal1-mth"></select>
-          <select id="cal1-yr"></select>
-          <input id="cal1-set" type="button" value="Select"/>
+          <select id="cal1-day" name="cal1-day"></select>
+          <select id="cal1-mth" name="cal1-mth"></select>
+          <select id="cal1-yr" name="cal1-yr"></select>
         </div>
-        <br>
         Select your family member:
         <br>
         <!--change name later  -->
@@ -56,5 +54,11 @@
   <form class="" action="/planner" method="post">
       <input type="Submit" name="calButton" value="To Planner">
   </form>
+
+  <ul>
+    {% for member in event %}
+      <li> {{cal1-yr}} {{cal1-mth}}  <br> Color is: {{user.color}}</li><br>
+    {% endfor %}
+  </ul>
 </body>
 </html>

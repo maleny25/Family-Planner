@@ -1,11 +1,11 @@
 import webapp2
 import jinja2
 import os
+import time
 from google.appengine.api import users
 from login import User
 from login import Family
 from login import Event
-import time
 
 the_jinja_env= jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -83,29 +83,30 @@ class Calendar(webapp2.RequestHandler):
         # self.response.write(signout_link_html)
         # self.response.write(calendar_template.render())
     def post(self):
+        event = Event(
+            owner=self.request.get('family'),
+            event_day=self.request.get('cal1-day'),
+            event_month = self.request.get('cal1-mth'),
+            event_year = self.request.get('cal1-yr'),
+            event_name = self.request.get('event_name'),
+        )
+
+        calevent=event.put()
         calendar_template=the_jinja_env.get_template('templates/calendar.html')
         user=users.get_current_user()
         signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
         family= load_family_by_email(users.get_current_user().email())
         calendar_dict={
         "family": family,
+        "cal1-day": event.event_day,
+        "cal1-mth": event.event_month,
+        "cal1-yr": event.event_year,
+        "event_name": event.event_name,
         }
         self.response.write(signout_link_html)
         self.response.write(calendar_template.render(calendar_dict))
-        current_user = users.get_current_user()
-        result=User.query().filter(User.email==current_user.email()).fetch()
 
-        event = Event(
-            owner = self.request.get('owner'),
-            event_date = self.request.get('event_date'),
-        )
-        event.put()
-        cal_template= the_jinja_env.get_template('templates/calendar.html')
-        calendar_dict={
-        "owner": event.owner,
-        "date":event.event_date,
-        }
-        self.response.write(cal_template.render(calendar_dict))
+
 
 class Profile(webapp2.RequestHandler):
     def get(self):
@@ -124,8 +125,8 @@ class Profile(webapp2.RequestHandler):
 
     def post(self):
         user = User(
-            first_name=self.request.get('Firstname'),
-            last_name=self.request.get('Lastname'),
+            first_name=self.request.get('first_name'),
+            last_name=self.request.get('last_name'),
             email=self.request.get('email'),
             color=self.request.get('color'))
 
@@ -148,28 +149,6 @@ class Profile(webapp2.RequestHandler):
         self.response.write(profile_template.render(profile_dict))
 
 
-<<<<<<< HEAD
-class Planner(webapp2.RequestHandler):
-    def get(self):
-        planner_template= the_jinja_env.get_template('templates/planner.html')
-        user = User(
-            first_name=self.request.get('first_name'))
-        planner_dict={
-        "first_name":first_name,
-        }
-        self.response.write(planner_template.render(planner_dict))
-
-    def post(self):
-        planner_template= the_jinja_env.get_template('templates/planner.html')
-        user = User(
-            first_name=self.request.get('first_name'))
-        planner_dict={
-        "first_name":first_name,
-        }
-        self.response.write(planner_template.render(planner_dict))
-
-=======
->>>>>>> 40028fc1bd3dd661f2170477a357d6c42463a6f5
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
   ('/calendar', Calendar),

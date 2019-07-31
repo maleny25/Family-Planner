@@ -99,7 +99,7 @@ var cal = {
     }
 
     // REMOVE ANY ADD/EDIT EVENT DOCKET
-    cal.close();
+    // cal.close();
   },
   //
   // show : function (el) {
@@ -181,7 +181,80 @@ window.addEventListener("load", function () {
     year.appendChild(opt);
   }
 
+
   // START - DRAW CALENDAR
   document.getElementById("cal-set").addEventListener("click", cal.list);
   cal.list();
+});
+
+var cal1 = {
+  moName : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], // Month Names
+  data : null, // Events for the selected period
+  seMon : false,
+  seDay : 0, // Current selected day
+  seMth : 0, // Current selected month
+  seYear : 0,
+
+  list2 : function () {
+    cal1.seMth = parseInt(document.getElementById("cal1-mth").value); // selected month
+    cal1.seYear = parseInt(document.getElementById("cal1-yr").value);
+    cal1.seDay = parseInt(document.getElementById("cal1-day").value);
+    // var daysInMth1 = new Date(cal1.seYear, cal1.seMth+1, 0).getDate(), // number of days in selected month
+    //     startDay1 = new Date(cal1.seYear, cal1.seMth, 1).getDay(), // first day of the month
+    //     endDay1 = new Date(cal1.seYear, cal1.seMth, daysInMth).getDay();
+
+    cal1.data = localStorage.getItem("cal1-" + cal1.seMth + "-" + cal1.seYear);
+    if (cal1.data==null) {
+      localStorage.setItem("cal1-" + cal1.seMth + "-" + cal1.seYear, "{}");
+      cal1.data = {};
+    } else {
+      cal1.data = JSON.parse(cal1.data);
+    }
+
+  }}
+
+window.addEventListener("load",  function () {
+
+    var daysInMth1 = new Date(cal1.seYear, cal1.seMth+1, 0).getDate(), // number of days in selected month
+        startDay1 = new Date(cal1.seYear, cal1.seMth, 1).getDay(), // first day of the month
+        endDay1 = new Date(cal1.seYear, cal1.seMth, daysInMth1).getDay();
+
+      // DATE NOW
+    var now1 = new Date(),
+        nowMth1 = now1.getMonth(),
+        nowDay1 = parseInt(now1.getDay()),
+        nowYear1 = parseInt(now1.getFullYear());
+
+      // APPEND MONTHS SELECTOR
+    var month1 = document.getElementById("cal1-mth");
+    for (var i = 0; i < 12; i++) {
+      var opt1 = document.createElement("option");
+      opt1.value = i;
+      opt1.innerHTML = cal1.moName[i];
+      if (i==nowMth1) { opt1.selected = true; }
+      month1.appendChild(opt1);
+    }
+
+      // APPEND YEARS SELECTOR
+      // Set to 10 years range. Change this as you like.
+    var year1 = document.getElementById("cal1-yr");
+    for (var i = nowYear1-10; i<=nowYear1+10; i++) {
+      var opt1 = document.createElement("option");
+      opt1.value = i;
+      opt1.innerHTML = i;
+      if (i==nowYear1) { opt1.selected = true; }
+      year1.appendChild(opt1);
+    }
+
+    var day1 = document.getElementById("cal1-day");
+    for (var i = 1; i<=31; i++) {
+      var opt1 = document.createElement("option");
+      opt1.value = i;
+      opt1.innerHTML = i;
+      if (i==nowDay1) { opt1.selected = true; }
+      day1.appendChild(opt1);
+    }
+
+
+
 });
