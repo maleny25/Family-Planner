@@ -15,4 +15,5 @@ class Family (ndb.Model):
 
 class Event (ndb.Model):
     owner = ndb.KeyProperty(User)
+    event_date = ndb.IntegerProperty()
     # maybe fix
