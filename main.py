@@ -150,6 +150,7 @@ class Profile(webapp2.RequestHandler):
 class Planner (webapp2.RequestHandler):
     def get(self):
         self.response.write("Hello")
+    def post(self):
 
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
