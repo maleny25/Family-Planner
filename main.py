@@ -147,6 +147,10 @@ class Profile(webapp2.RequestHandler):
         self.response.write(profile_template.render(profile_dict))
         return webapp2.redirect("/profile")
 
+class Planner (webapp2.RequestHandler):
+    def get(self):
+        self.response.write("Hello")
+
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
   ('/calendar', Calendar),
