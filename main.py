@@ -3,6 +3,7 @@ import jinja2
 import os
 import time
 from google.appengine.api import users
+from google.appengine.ext import ndb
 from login import User
 from login import Family
 from login import Event
@@ -16,6 +17,15 @@ def load_family_by_email (email):
     current_user=User.query().filter(User.email==email).fetch()[0]
     family = Family.query(Family.members ==current_user.key).fetch()[0]
     return family
+
+def load_event (email):
+    event=[]
+    family= load_family_by_email(email)
+    for member in family.members:
+        user=member.get()
+        if user:
+            event.extend(Event.query().filter(Event.owner==user.key))
+    return event
 
 
 class MainHandler(webapp2.RequestHandler):
@@ -80,11 +90,13 @@ class Calendar(webapp2.RequestHandler):
         "family": family,
         }
         self.response.write(calendar_template.render(calendar_dict))
+        self.response.write(load_event(users.get_current_user().email()))
         # self.response.write(signout_link_html)
         # self.response.write(calendar_template.render())
     def post(self):
+        user_key = ndb.Key(urlsafe=self.request.get('family'))
         event = Event(
-            owner=self.request.get('family'),
+            owner=user_key,
             event_day=self.request.get('cal1-day'),
             event_month = self.request.get('cal1-mth'),
             event_year = self.request.get('cal1-yr'),
@@ -102,7 +114,9 @@ class Calendar(webapp2.RequestHandler):
         "cal1-mth": event.event_month,
         "cal1-yr": event.event_year,
         "event_name": event.event_name,
+        "events": load_event(users.get_current_user().email()),
         }
+        #load_event(users.get_current_user().email())
         self.response.write(signout_link_html)
         self.response.write(calendar_template.render(calendar_dict))
 

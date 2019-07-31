@@ -14,7 +14,7 @@ class Family (ndb.Model):
     members= ndb.KeyProperty(User, repeated=True)
 
 class Event (ndb.Model):
-    owner = ndb.StringProperty()
+    owner = ndb.KeyProperty()
     event_day = ndb.StringProperty()
     event_month = ndb.StringProperty()
     event_year = ndb.StringProperty()

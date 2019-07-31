@@ -19,7 +19,7 @@
     <!-- [EVENT] -->
     <div id="cal-event"></div>
   </div>
-
+ {{events}}
   <form action="/calendar" method="post">
         Name of Event:
         <br>
@@ -37,7 +37,7 @@
         <select name="family">
             {% for member in family.members %}
               {% set user=member.get() %}
-               <option value="{{member}}">{{user.first_name}}</option>
+               <option value="{{member.urlsafe()}}">{{user.first_name}}</option>
             {% endfor %}
 
         </select>
