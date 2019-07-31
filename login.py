@@ -17,3 +17,6 @@ class Event (ndb.Model):
     owner = ndb.KeyProperty(User)
     event_date = ndb.IntegerProperty()
     # maybe fix
+class ToDo(ndb.Model):
+    owner=ndb.KeyProperty(User)
+    task=ndb.StringProperty()
