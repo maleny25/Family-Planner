@@ -48,7 +48,6 @@ class MainHandler(webapp2.RequestHandler):
             <form method="post" action="/">
             First Name: <input type="text" name="first_name"> <br>
             Last Name: <input type="text" name="last_name"> <br>
-            Event Color: <select>%s</select><br>
             <input type="submit">
             </form><br> %s <br>
             ''' % (email_address, signout_link_html))
