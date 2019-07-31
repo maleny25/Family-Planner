@@ -4,6 +4,7 @@ import os
 from google.appengine.api import users
 from login import User
 from login import Family
+from login import Event
 import time
 
 the_jinja_env= jinja2.Environment(
@@ -91,6 +92,20 @@ class Calendar(webapp2.RequestHandler):
         }
         self.response.write(signout_link_html)
         self.response.write(calendar_template.render(calendar_dict))
+        current_user = users.get_current_user()
+        result=User.query().filter(User.email==current_user.email()).fetch()
+
+        event = Event(
+            owner = self.request.get('owner'),
+            event_date = self.request.get('event_date'),
+        )
+        event.put()
+        cal_template= the_jinja_env.get_template('templates/calendar.html')
+        calendar_dict={
+        "owner": event.owner,
+        "date":event.event_date,
+        }
+        self.response.write(cal_template.render(calendar_dict))
 
 class Profile(webapp2.RequestHandler):
     def get(self):
@@ -147,7 +162,7 @@ class Planner(webapp2.RequestHandler):
         planner_template= the_jinja_env.get_template('templates/planner.html')
         user = User(
             first_name=self.request.get('first_name'))
-       planner_dict={
+        planner_dict={
         "first_name":first_name,
         }
         self.response.write(planner_template.render(planner_dict))
