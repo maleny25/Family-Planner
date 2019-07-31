@@ -45,7 +45,7 @@ class MainHandler(webapp2.RequestHandler):
             user_color+='<option value="'+color+'">'+color+'</option>'
         self.response.write('''
             Welcome to our site, %s!  Please sign up! <br>
-            <form method="post" action="/">
+            <form method="post" action="/profile">
             First Name: <input type="text" name="first_name"> <br>
             Last Name: <input type="text" name="last_name"> <br>
             <input type="submit">
