@@ -148,6 +148,7 @@ class Profile(webapp2.RequestHandler):
         self.response.write(profile_template.render(profile_dict))
 
 
+<<<<<<< HEAD
 class Planner(webapp2.RequestHandler):
     def get(self):
         planner_template= the_jinja_env.get_template('templates/planner.html')
@@ -167,6 +168,8 @@ class Planner(webapp2.RequestHandler):
         }
         self.response.write(planner_template.render(planner_dict))
 
+=======
+>>>>>>> 40028fc1bd3dd661f2170477a357d6c42463a6f5
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
   ('/calendar', Calendar),
