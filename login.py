@@ -18,3 +18,4 @@ class Event (ndb.Model):
     # maybe fix
 class ToDo(ndb.Model):
     owner=ndb.KeyProperty(User)
+    task=ndb.StringProperty()
