@@ -133,25 +133,6 @@ class Profile(webapp2.RequestHandler):
         self.response.write(profile_template.render(profile_dict))
 
 
-class Planner(webapp2.RequestHandler):
-    def get(self):
-        planner_template= the_jinja_env.get_template('templates/planner.html')
-        user = User(
-            first_name=self.request.get('first_name'))
-        planner_dict={
-        "first_name":first_name,
-        }
-        self.response.write(planner_template.render(planner_dict))
-
-    def post(self):
-        planner_template= the_jinja_env.get_template('templates/planner.html')
-        user = User(
-            first_name=self.request.get('first_name'))
-       planner_dict={
-        "first_name":first_name,
-        }
-        self.response.write(planner_template.render(planner_dict))
-
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
   ('/calendar', Calendar),
