@@ -17,8 +17,6 @@ def load_family_by_email (email):
     return family
 
 
-
-
 class MainHandler(webapp2.RequestHandler):
   def get(self):
     colors=["Pink", "Purple", "Red", "Green", "Orange", "Gray","Yellow"]
@@ -29,23 +27,13 @@ class MainHandler(webapp2.RequestHandler):
       user = User.query().filter(User.email == email_address).get()
       if user:
         self.redirect("/calendar")
-        # self.response.write(signout_link_html)
-        # calendar_template= the_jinja_env.get_template('templates/calendar.html')
-        # first_name=user.first_name
-        # family= load_family_by_email(users.get_current_user().email())
-        # calendar_dict={
-        # "first_name":first_name,
-        # "family": family
-        # }
-
-        # self.response.write(calendar_template.render(calendar_dict))
       else:
         user_color=""
         for color in colors:
             user_color+='<option value="'+color+'">'+color+'</option>'
         self.response.write('''
             Welcome to our site, %s!  Please sign up! <br>
-            <form method="post" action="/profile">
+            <form method="post" action="/">
             First Name: <input type="text" name="first_name"> <br>
             Last Name: <input type="text" name="last_name"> <br>
             <input type="submit">
@@ -62,8 +50,6 @@ class MainHandler(webapp2.RequestHandler):
     current_user = users.get_current_user()
     result=User.query().filter(User.email==current_user.email()).fetch()
     user_color="Blue"
-    #if result:
-        #user_color=result[0].color()
     user = User(
         first_name=self.request.get('first_name'),
         last_name=self.request.get('last_name'),
@@ -145,15 +131,30 @@ class Profile(webapp2.RequestHandler):
         "family":family,
         }
         self.response.write(profile_template.render(profile_dict))
-        return webapp2.redirect("/profile")
 
-class Planner (webapp2.RequestHandler):
-    def get(self):
-        self.response.write("Hello")
-    def post(self):
+
+#class Planner(webapp2.RequestHandler):
+    #def get(self):
+        #planner_template= the_jinja_env.get_template('templates/planner.html')
+        #user = User(
+        #    first_name=self.request.get('first_name'))
+        #planner_dict={
+        #"first_name":first_name,
+        #}
+        #self.response.write(planner_template.render(planner_dict))
+
+    #def post(self):
+    #    planner_template= the_jinja_env.get_template('templates/planner.html')
+    #    user = User(
+    #        first_name=self.request.get('first_name'))
+    #    planner_dict={
+    #    "first_name":first_name,
+    #    }
+    #    self.response.write(planner_template.render(planner_dict))
 
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
   ('/calendar', Calendar),
   ('/profile', Profile),
+ # ('/planner', Planner)
 ], debug=True)
