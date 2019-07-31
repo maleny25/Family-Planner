@@ -12,7 +12,7 @@
     <ul>
       {% for member in family.members %}
         {% set user=member.get() %}
-        <li> {{user.first_name}} {{user.last_name}} </li>
+        <li> {{user.first_name}} {{user.last_name}} <br> Color is: {{user.color}}</li><br>
       {% endfor %}
     </ul>
     <h3>Add a new family member</h3>
@@ -23,6 +23,13 @@
       <input type="text" name="Lastname" value=""></input> <br><br>
       Email:
       <input type="text" name="email" value=""></input> <br><br>
+      Color:
+      <select class="" name="color">
+        {% for color in colors %}
+          <option value="{{color}}">{{color}}</option>
+        {% endfor %}
+      </select>
+      <br>
       <input type="submit" name="" value="Add Family Member!">
     </form>
     <form class="" action="/calendar" method="post">
