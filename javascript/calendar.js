@@ -258,3 +258,75 @@ window.addEventListener("load",  function () {
 
 
 });
+
+var cal2 = {
+  monName : ["null","Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], // Month Names
+  data : null, // Events for the selected period
+  secMon : false,
+  secDay : 0, // Current selected day
+  secMth : 0, // Current selected month
+  secYear : 0,
+
+  list3 : function () {
+    cal2.secMth = parseInt(document.getElementById("cal2-mth").value); // selected month
+    cal2.secYear = parseInt(document.getElementById("cal2-yr").value);
+    cal2.secDay = parseInt(document.getElementById("cal2-day").value);
+    // var daysInMth1 = new Date(cal1.seYear, cal1.seMth+1, 0).getDate(), // number of days in selected month
+    //     startDay1 = new Date(cal1.seYear, cal1.seMth, 1).getDay(), // first day of the month
+    //     endDay1 = new Date(cal1.seYear, cal1.seMth, daysInMth).getDay();
+
+    cal2.data = localStorage.getItem("cal2-" + cal2.secMth + "-" + cal2.secYear);
+    if (cal2.data==null) {
+      localStorage.setItem("cal2-" + cal2.secMth + "-" + cal2.secYear, "{}");
+      cal2.data = {};
+    } else {
+      cal2.data = JSON.parse(cal2.data);
+    }
+
+  }}
+
+window.addEventListener("load",  function () {
+
+    var daysInMth2 = new Date(cal2.secYear, cal2.secMth+1, 0).getDate(), // number of days in selected month
+        startDay2 = new Date(cal2.secYear, cal2.secMth, 1).getDay(), // first day of the month
+        endDay2 = new Date(cal2.secYear, cal2.secMth, daysInMth2).getDay();
+
+      // DATE NOW
+    var now2 = new Date(),
+        nowMth2 = now2.getMonth(),
+        nowDay2 = parseInt(now2.getDay()),
+        nowYear2 = parseInt(now2.getFullYear());
+
+      // APPEND MONTHS SELECTOR
+    var month2 = document.getElementById("cal2-mth");
+    for (var i = 1; i < 13; i++) {
+      var opt2 = document.createElement("option");
+      opt2.value = i;
+      opt2.innerHTML = cal2.monName[i];
+      if (i==nowMth2) { opt2.selected = true; }
+      month2.appendChild(opt2);
+    }
+
+      // APPEND YEARS SELECTOR
+      // Set to 10 years range. Change this as you like.
+    var year2 = document.getElementById("cal2-yr");
+    for (var i = nowYear2-10; i<=nowYear2+10; i++) {
+      var opt2 = document.createElement("option");
+      opt2.value = i;
+      opt2.innerHTML = i;
+      if (i==nowYear2) { opt2.selected = true; }
+      year2.appendChild(opt2);
+    }
+
+    var day2 = document.getElementById("cal2-day");
+    for (var i = 1; i<=31; i++) {
+      var opt2 = document.createElement("option");
+      opt2.value = i;
+      opt2.innerHTML = i;
+      if (i==nowDay2) { opt2.selected = true; }
+      day2.appendChild(opt2);
+    }
+
+
+
+});

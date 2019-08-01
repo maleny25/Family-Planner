@@ -17,6 +17,7 @@ class Family (ndb.Model):
 class Event (ndb.Model):
     owner = ndb.KeyProperty()
     event_date=ndb.DateProperty()
+    event_end=ndb.DateProperty()
     event_name = ndb.StringProperty()
     color=ndb.StringProperty()
     # maybe fix

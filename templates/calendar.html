@@ -20,17 +20,26 @@
     <!-- [EVENT] -->
     <div id="cal-event"></div>
   </div>
- {{events}}
+  {% for member in family.members %}
+    {% set user=member.get() %}
+    <p>{{user.first_name}}'s color is {{user.color}}</p>
+  {% endfor %}
   <form action="/calendar" method="post">
         Name of Event:
         <br>
         <input type="text" name="event_name" value="Event">
         <br>
-        Event Date:
+        Event Start Date:
         <div id="cal1-date">
           <select id="cal1-day" name="cal1-day"></select>
           <select id="cal1-mth" name="cal1-mth"></select>
           <select id="cal1-yr" name="cal1-yr"></select>
+        </div>
+        Event End Date:
+        <div id="cal2-date">
+          <select id="cal2-day" name="cal2-day"></select>
+          <select id="cal2-mth" name="cal2-mth"></select>
+          <select id="cal2-yr" name="cal2-yr"></select>
         </div>
         Select your family member:
         <br>
@@ -58,7 +67,7 @@
 
     {% for member in event %}
      <div style="background-color: {{member.color}};">
-      {{member.event_name}}<br>{{member.event_date}}
+      Event: {{member.event_name}}<br>Dates: {{member.event_date}} to {{member.event_end}}
     </div><br>
     {% endfor %}
 </body>

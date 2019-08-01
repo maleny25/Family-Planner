@@ -111,10 +111,12 @@ class Calendar(webapp2.RequestHandler):
                 color=member.get().color
 
         event_date=datetime.date(int(self.request.get('cal1-yr')), int(self.request.get('cal1-mth')), int(self.request.get('cal1-day')))
+        event_end=datetime.date(int(self.request.get('cal2-yr')), int(self.request.get('cal2-mth')), int(self.request.get('cal2-day')))
         event = Event(
             owner=user_key,
             event_name = self.request.get('event_name'),
             event_date= event_date,
+            event_end=event_end,
             color=color
         )
         calevent=event.put()
