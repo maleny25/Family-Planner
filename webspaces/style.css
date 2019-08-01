@@ -1,0 +1,26 @@
+#leftPerson {
+  background-color: skyblue
+  flex-grow: 1;
+  box-shadow: : 0 4px 8px 0 rgba(0,0,0,0.2);
+  margin-left: 1%;
+  border-radius: 5%;
+  padding-bottom: 2%
+}
+ #middlePerson {
+   background-color: skyblue
+   flex-grow: 1;
+   box-shadow: : 0 4px 8px 0 rgba(0,0,0,0.2);
+   margin-left: 1%;
+   border-radius: 5%;
+   padding-bottom: 2%
+ }
+ #aboutUsHeader {
+   text-align: center;
+ }
+
+ html {
+   background-color: skyblue;
+   color: black;
+   font-family: 'avenir-next';
+
+ }
