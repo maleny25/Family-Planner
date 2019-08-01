@@ -69,10 +69,10 @@
       <input type="Submit" name="calButton" value="To Planner">
   </form>
 
-    <!-- {% for member in event %}
-     <div style="{% if all_members%} background-color: gray; {% else %} background-color:{{member.color}}; {% endif %}">
+    {% for member in event %}
+     <div style=" background-color:{{member.color}}; ">
       Event: {{member.event_name}}<br>Dates: {{member.event_date}} to {{member.event_end}}
     </div><br>
-    {% endfor %} -->
+    {% endfor %}
 </body>
 </html>
