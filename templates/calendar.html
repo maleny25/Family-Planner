@@ -3,16 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <link href="/stylesheets/calendar.css" rel="stylesheet">
+    <!-- <link href="/stylesheets/calendar.css" rel="stylesheet"> -->
     <script src="/javascript/calendar.js"></script>
   </head>
-  <body><div id="page-body">
-    <!-- [PERIOD SELECTOR] -->
+   <body>
+<!--  <div id="page-body">
+     [PERIOD SELECTOR]
     <div id="cal-date">
       <select id="cal-mth"></select>
       <select id="cal-yr"></select>
       <input id="cal-set" type="button" value="SET"/>
-    </div>
+    </div> -->
     <!-- [CALENDAR] -->
     <div id="cal-container"></div>
 
@@ -55,10 +56,8 @@
       <input type="Submit" name="calButton" value="To Planner">
   </form>
 
-  <ul>
     {% for member in event %}
-      <li> {{cal1-yr}} {{cal1-mth}}  <br> Color is: {{user.color}}</li><br>
+    <div>  {{member.event_name}}<br>{{member.event_date}}</div><br>
     {% endfor %}
-  </ul>
 </body>
 </html>

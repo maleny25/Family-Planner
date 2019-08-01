@@ -13,11 +13,13 @@ class User(ndb.Model):
 class Family (ndb.Model):
     members= ndb.KeyProperty(User, repeated=True)
 
+
 class Event (ndb.Model):
     owner = ndb.KeyProperty()
-    event_day = ndb.StringProperty()
-    event_month = ndb.StringProperty()
-    event_year = ndb.StringProperty()
+    event_date=ndb.DateProperty()
+    # event_day = ndb.DateProperty()
+    # event_month = ndb.Property()
+    # event_year = ndb.StringProperty()
     event_name = ndb.StringProperty()
     # maybe fix
 class ToDo(ndb.Model):

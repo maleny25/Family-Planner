@@ -2,6 +2,7 @@ import webapp2
 import jinja2
 import os
 import time
+import datetime
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from login import User
@@ -18,13 +19,18 @@ def load_family_by_email (email):
     family = Family.query(Family.members ==current_user.key).fetch()[0]
     return family
 
+def get_date(event):
+    return event.event_date
+
 def load_event (email):
     event=[]
     family= load_family_by_email(email)
     for member in family.members:
         user=member.get()
         if user:
-            event.extend(Event.query().filter(Event.owner==user.key))
+            event.extend(Event.query().filter(Event.owner==user.key).filter(Event.event_date>=datetime.datetime.today()))
+    event.sort(key=get_date)
+    #sort list by date
     return event
 
 
@@ -77,6 +83,8 @@ class MainHandler(webapp2.RequestHandler):
     "family":family
     }
     self.response.write(profile_template.render(profile_dict))
+    time.sleep(0.1)
+    self.redirect("/calendar")
 
 class Calendar(webapp2.RequestHandler):
     def get(self):
@@ -90,31 +98,30 @@ class Calendar(webapp2.RequestHandler):
         "family": family,
         }
         self.response.write(calendar_template.render(calendar_dict))
-        self.response.write(load_event(users.get_current_user().email()))
+        #self.response.write(load_event(users.get_current_user().email()))
         # self.response.write(signout_link_html)
         # self.response.write(calendar_template.render())
     def post(self):
         user_key = ndb.Key(urlsafe=self.request.get('family'))
+        event_date=datetime.date(int(self.request.get('cal1-yr')), int(self.request.get('cal1-mth')), int(self.request.get('cal1-day')))
         event = Event(
             owner=user_key,
-            event_day=self.request.get('cal1-day'),
-            event_month = self.request.get('cal1-mth'),
-            event_year = self.request.get('cal1-yr'),
+            # event_day=self.request.get('cal1-day'),
+            # event_month = self.request.get('cal1-mth'),
+            # event_year = self.request.get('cal1-yr'),
             event_name = self.request.get('event_name'),
+            event_date= event_date,
         )
 
         calevent=event.put()
+        time.sleep(0.1)
         calendar_template=the_jinja_env.get_template('templates/calendar.html')
         user=users.get_current_user()
         signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
         family= load_family_by_email(users.get_current_user().email())
         calendar_dict={
         "family": family,
-        "cal1-day": event.event_day,
-        "cal1-mth": event.event_month,
-        "cal1-yr": event.event_year,
-        "event_name": event.event_name,
-        "events": load_event(users.get_current_user().email()),
+        "event": load_event(users.get_current_user().email()),
         }
         #load_event(users.get_current_user().email())
         self.response.write(signout_link_html)
