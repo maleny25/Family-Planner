@@ -138,7 +138,7 @@ class Calendar(webapp2.RequestHandler):
         calendar_dict={
         "family": family,
         "event": load_event(users.get_current_user().email()),
-        "all_members": all_members,
+        # "all_members": all_members,
         }
         self.response.write(signout_link_html)
         self.response.write(calendar_template.render(calendar_dict))
