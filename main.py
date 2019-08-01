@@ -94,16 +94,16 @@ class Calendar(webapp2.RequestHandler):
         user=users.get_current_user()
         signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
         family= load_family_by_email(users.get_current_user().email())
+
         calendar_dict={
         "family": family,
+        "event": load_event(users.get_current_user().email())
         }
         self.response.write(calendar_template.render(calendar_dict))
     def post(self):
         family= load_family_by_email(users.get_current_user().email())
         event_user=self.request.get('family')
-        #print ("first_name " + event_user)
-        user_key=""
-        color=""
+
         for member in family.members:
             user=member.get()
             if user.first_name==event_user:
@@ -173,7 +173,7 @@ class Profile(webapp2.RequestHandler):
     #def get(self):
     #def post(self):
 
-    
+
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
   ('/calendar', Calendar),
