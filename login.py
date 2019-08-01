@@ -20,6 +20,7 @@ class Event (ndb.Model):
     event_end=ndb.DateProperty()
     event_name = ndb.StringProperty()
     color=ndb.StringProperty()
+    # all_members=ndb.BooleanProperty()
     # maybe fix
 class ToDo(ndb.Model):
     owner=ndb.KeyProperty(User)

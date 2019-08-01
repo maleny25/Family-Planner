@@ -52,6 +52,9 @@
               <!-- <option value="all">All</option> -->
 
         </select>
+
+        <!-- <input type="checkbox" name="all_members" value="True">All Members</input> -->
+
         <br>
         <input type="submit" value="Add event">
         <br>
@@ -66,10 +69,10 @@
       <input type="Submit" name="calButton" value="To Planner">
   </form>
 
-    {% for member in event %}
-     <div style="background-color: {{member.color}};">
+    <!-- {% for member in event %}
+     <div style="{% if all_members%} background-color: gray; {% else %} background-color:{{member.color}}; {% endif %}">
       Event: {{member.event_name}}<br>Dates: {{member.event_date}} to {{member.event_end}}
     </div><br>
-    {% endfor %}
+    {% endfor %} -->
 </body>
 </html>
