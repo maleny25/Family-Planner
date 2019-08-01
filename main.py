@@ -135,11 +135,6 @@ class Calendar(webapp2.RequestHandler):
         calendar_dict={
         "family": family,
         "event": load_event(users.get_current_user().email()),
-<<<<<<< HEAD
-        # "all_members": all_members,
-=======
-        #"all_members": all_members,
->>>>>>> 6fff1a6f40476eee7671089f731d34772d734e2a
         }
         self.response.write(signout_link_html)
         self.response.write(calendar_template.render(calendar_dict))
