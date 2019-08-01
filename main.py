@@ -110,12 +110,9 @@ class Calendar(webapp2.RequestHandler):
     def post(self):
         family= load_family_by_email(users.get_current_user().email())
         event_user=self.request.get('family')
-<<<<<<< HEAD
-=======
         # all_members = bool(self.request.get("all_members"))
 
 
->>>>>>> a54896e2b5434cf5f1f057d2886569fae8abb36d
         for member in family.members:
             user=member.get()
             if user.first_name==event_user:
