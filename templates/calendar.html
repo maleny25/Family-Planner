@@ -38,7 +38,7 @@
         <select name="family">
             {% for member in family.members %}
               {% set user=member.get() %}
-               <option value="{{member.urlsafe()}}">{{user.first_name}}</option>
+               <option value="{{user.first_name}}">{{user.first_name}}</option>
             {% endfor %}
 
         </select>
@@ -57,7 +57,9 @@
   </form>
 
     {% for member in event %}
-    <div>  {{member.event_name}}<br>{{member.event_date}}</div><br>
+     <div style="background-color: {{member.color}};">
+      {{member.event_name}}<br>{{member.event_date}}
+    </div><br>
     {% endfor %}
 </body>
 </html>

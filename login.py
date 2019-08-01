@@ -8,7 +8,7 @@ class User(ndb.Model):
   last_name = ndb.StringProperty()
   email = ndb.StringProperty()
   color = ndb.StringProperty()
-  # add colors
+
 
 class Family (ndb.Model):
     members= ndb.KeyProperty(User, repeated=True)
@@ -17,10 +17,8 @@ class Family (ndb.Model):
 class Event (ndb.Model):
     owner = ndb.KeyProperty()
     event_date=ndb.DateProperty()
-    # event_day = ndb.DateProperty()
-    # event_month = ndb.Property()
-    # event_year = ndb.StringProperty()
     event_name = ndb.StringProperty()
+    color=ndb.StringProperty()
     # maybe fix
 class ToDo(ndb.Model):
     owner=ndb.KeyProperty(User)

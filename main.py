@@ -84,7 +84,7 @@ class MainHandler(webapp2.RequestHandler):
     }
     self.response.write(profile_template.render(profile_dict))
     time.sleep(0.1)
-    self.redirect("/calendar")
+    self.redirect("/profile")
 
 class Calendar(webapp2.RequestHandler):
     def get(self):
@@ -98,48 +98,48 @@ class Calendar(webapp2.RequestHandler):
         "family": family,
         }
         self.response.write(calendar_template.render(calendar_dict))
-        #self.response.write(load_event(users.get_current_user().email()))
-        # self.response.write(signout_link_html)
-        # self.response.write(calendar_template.render())
     def post(self):
-        user_key = ndb.Key(urlsafe=self.request.get('family'))
+        family= load_family_by_email(users.get_current_user().email())
+        event_user=self.request.get('family')
+        #print ("first_name " + event_user)
+        user_key=""
+        color=""
+        for member in family.members:
+            user=member.get()
+            if user.first_name==event_user:
+                user_key=member
+                color=member.get().color
+
         event_date=datetime.date(int(self.request.get('cal1-yr')), int(self.request.get('cal1-mth')), int(self.request.get('cal1-day')))
         event = Event(
             owner=user_key,
-            # event_day=self.request.get('cal1-day'),
-            # event_month = self.request.get('cal1-mth'),
-            # event_year = self.request.get('cal1-yr'),
             event_name = self.request.get('event_name'),
             event_date= event_date,
+            color=color
         )
-
         calevent=event.put()
         time.sleep(0.1)
         calendar_template=the_jinja_env.get_template('templates/calendar.html')
         user=users.get_current_user()
         signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
-        family= load_family_by_email(users.get_current_user().email())
+        name=self.request.get('family')
         calendar_dict={
         "family": family,
         "event": load_event(users.get_current_user().email()),
         }
-        #load_event(users.get_current_user().email())
         self.response.write(signout_link_html)
         self.response.write(calendar_template.render(calendar_dict))
-
-
 
 class Profile(webapp2.RequestHandler):
     def get(self):
         colors=["Pink", "Purple", "Red", "Green", "Orange", "Gray","Yellow"]
         user1 = users.get_current_user().email()
         user = User.query().filter(User.email== user1).get()
-        last_name=user.last_name
         family= load_family_by_email(users.get_current_user().email())
         profile_template= the_jinja_env.get_template('templates/profile.html')
         profile_dict={
         "family":family,
-        "last_name": last_name,
+        "last_name": user.last_name,
         "colors":colors,
         }
         self.response.write(profile_template.render(profile_dict))
@@ -169,7 +169,11 @@ class Profile(webapp2.RequestHandler):
         }
         self.response.write(profile_template.render(profile_dict))
 
+#class Planner(webapp2.RequestHandler):
+    #def get(self):
+    #def post(self):
 
+    
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
   ('/calendar', Calendar),
