@@ -92,7 +92,6 @@ class Calendar(webapp2.RequestHandler):
         self.response.write(signout_link_html)
         calendar_template=the_jinja_env.get_template('templates/calendar.html')
         user=users.get_current_user()
-        signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
         family= load_family_by_email(users.get_current_user().email())
 
         calendar_dict={
