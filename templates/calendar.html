@@ -22,7 +22,7 @@
   </div>
   {% for member in family.members %}
     {% set user=member.get() %}
-    <p>{{user.first_name}}'s color is {{user.color}}</p>
+    <p>{{user.first_name}}'s color is <span style="color:{{user.color}}; ">{{user.color}}</span></p>
   {% endfor %}
   <form action="/calendar" method="post">
         Name of Event:

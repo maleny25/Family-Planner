@@ -36,7 +36,7 @@ def load_event (email):
 
 class MainHandler(webapp2.RequestHandler):
   def get(self):
-    colors=["Pink", "Purple", "Red", "Green", "Orange", "Gray","Yellow"]
+    colors=["Blue","Pink", "Purple", "Red", "Green", "Orange", "Gray","Yellow"]
     current_user = users.get_current_user()
     if current_user:
       signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
@@ -45,17 +45,23 @@ class MainHandler(webapp2.RequestHandler):
       if user:
         self.redirect("/calendar")
       else:
-        user_color=""
-        for color in colors:
-            user_color+='<option value="'+color+'">'+color+'</option>'
+        colors=["Blue", "Pink", "Purple", "Red", "Green", "Orange", "Gray","Yellow"]
+        # user_color=""
+        # for color in colors:
+        #     user_color+='<option value="'+color+'">'+color+'</option>'
         self.response.write('''
             Welcome to our site, %s!  Please sign up! <br>
             <form method="post" action="/">
             First Name: <input type="text" name="first_name"> <br>
             Last Name: <input type="text" name="last_name"> <br>
-            <input type="submit">
-            </form><br> %s <br>
+            Color: <select class="" name="color">
+            <br> %s <br>
             ''' % (email_address, signout_link_html))
+        for color in colors:
+            self.response.write('''
+                <option value="%s">%s</option>'''% (color, color))
+        self.response.write('''</select><br><input type="submit"></form>''')
+
 
     else:
       login_url = users.create_login_url('/')
@@ -65,8 +71,7 @@ class MainHandler(webapp2.RequestHandler):
 
   def post(self):
     current_user = users.get_current_user()
-    result=User.query().filter(User.email==current_user.email()).fetch()
-    user_color="Blue"
+    user_color=self.request.get('color')
     user = User(
         first_name=self.request.get('first_name'),
         last_name=self.request.get('last_name'),
@@ -134,7 +139,7 @@ class Calendar(webapp2.RequestHandler):
 
 class Profile(webapp2.RequestHandler):
     def get(self):
-        colors=["Pink", "Purple", "Red", "Green", "Orange", "Gray","Yellow"]
+        colors=["Blue", "Pink", "Purple", "Red", "Green", "Orange", "Gray","Yellow"]
         user1 = users.get_current_user().email()
         user = User.query().filter(User.email== user1).get()
         family= load_family_by_email(users.get_current_user().email())
