@@ -36,7 +36,7 @@ def load_event (email):
 
 class MainHandler(webapp2.RequestHandler):
   def get(self):
-    colors=["Blue", "Brown", "Cyan", "Gold", "Gray", "Green", "Lavender", "Lime", "Magenta", "Navy", "Orange", "Pink", "Purple","Turquoise", "Red", "Yellow"]
+    colors=["Blue", "Brown", "Cyan", "Gold", "Gray", "Green", "Lavendar", "Lime", "Magenta", "Navy", "Orange", "Pink", "Purple","Turquoise", "Red", "Yellow"]
     current_user = users.get_current_user()
     if current_user:
       signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
@@ -45,7 +45,7 @@ class MainHandler(webapp2.RequestHandler):
       if user:
         self.redirect("/calendar")
       else:
-        colors=["Blue", "Brown", "Cyan", "Gold", "Gray", "Green", "Lavender", "Lime", "Magenta", "Navy", "Orange", "Pink", "Purple","Turquoise", "Red", "Yellow"]
+        colors=["Blue", "Brown", "Cyan", "Gold", "Gray", "Green", "Lavendar", "Lime", "Magenta", "Navy", "Orange", "Pink", "Purple","Turquoise", "Red", "Yellow"]
         current_user = users.get_current_user()
         # user_color=""
         # for color in colors:
@@ -110,9 +110,6 @@ class Calendar(webapp2.RequestHandler):
     def post(self):
         family= load_family_by_email(users.get_current_user().email())
         event_user=self.request.get('family')
-        # all_members = bool(self.request.get("all_members"))
-
-
         for member in family.members:
             user=member.get()
             if user.first_name==event_user:
@@ -127,7 +124,7 @@ class Calendar(webapp2.RequestHandler):
             event_date= event_date,
             event_end=event_end,
             color=color,
-            # all_members= all_members,
+            #all_members= all_members,
         )
         calevent=event.put()
         time.sleep(0.1)
@@ -138,14 +135,18 @@ class Calendar(webapp2.RequestHandler):
         calendar_dict={
         "family": family,
         "event": load_event(users.get_current_user().email()),
+<<<<<<< HEAD
         # "all_members": all_members,
+=======
+        #"all_members": all_members,
+>>>>>>> 6fff1a6f40476eee7671089f731d34772d734e2a
         }
         self.response.write(signout_link_html)
         self.response.write(calendar_template.render(calendar_dict))
 
 class Profile(webapp2.RequestHandler):
     def get(self):
-        colors=["Blue", "Brown", "Cyan", "Gold", "Gray", "Green", "Lavender", "Lime", "Magenta", "Navy", "Orange", "Pink", "Purple","Turquoise", "Red", "Yellow"]
+        colors=["Blue", "Brown", "Cyan", "Gold", "Gray", "Green", "Lavendar", "Lime", "Magenta", "Navy", "Orange", "Pink", "Purple","Turquoise", "Red", "Yellow"]
         current_user = users.get_current_user()
         user1 = users.get_current_user().email()
         user = User.query().filter(User.email== user1).get()
