@@ -98,17 +98,24 @@ class Calendar(webapp2.RequestHandler):
         self.response.write(signout_link_html)
         calendar_template=the_jinja_env.get_template('templates/calendar.html')
         user=users.get_current_user()
-        signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
         family= load_family_by_email(users.get_current_user().email())
+        # all_members = bool(self.request.get("all_members"))
 
         calendar_dict={
         "family": family,
-        "event": load_event(users.get_current_user().email())
+        "event": load_event(users.get_current_user().email()),
+        # "all_members": all_members,
         }
         self.response.write(calendar_template.render(calendar_dict))
     def post(self):
         family= load_family_by_email(users.get_current_user().email())
         event_user=self.request.get('family')
+<<<<<<< HEAD
+=======
+        # all_members = bool(self.request.get("all_members"))
+
+
+>>>>>>> a54896e2b5434cf5f1f057d2886569fae8abb36d
         for member in family.members:
             user=member.get()
             if user.first_name==event_user:
@@ -122,7 +129,8 @@ class Calendar(webapp2.RequestHandler):
             event_name = self.request.get('event_name'),
             event_date= event_date,
             event_end=event_end,
-            color=color
+            color=color,
+            all_members= all_members,
         )
         calevent=event.put()
         time.sleep(0.1)
@@ -133,6 +141,7 @@ class Calendar(webapp2.RequestHandler):
         calendar_dict={
         "family": family,
         "event": load_event(users.get_current_user().email()),
+        "all_members": all_members,
         }
         self.response.write(signout_link_html)
         self.response.write(calendar_template.render(calendar_dict))
