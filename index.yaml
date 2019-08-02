@@ -13,9 +13,9 @@ indexes:
 - kind: Event
   properties:
   - name: owner
-  - name: event_end
+  - name: event_date
 
 - kind: Event
   properties:
   - name: owner
-  - name: event_date
+  - name: event_end

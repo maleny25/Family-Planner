@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <link rel="stylesheet" href="calendar.css">
+    <link rel="stylesheet" href="stylesheets/calendar.css">
     <meta charset="utf-8">
     <title></title>
     <!-- <link href="/stylesheets/calendar.css" rel="stylesheet"> -->
@@ -63,10 +63,10 @@
      <div id="mySidenav" class="sidenav">
        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
        <a href="homepage.html">Home</a>
-       <a href="#">Profile</a>
-       <a href="#">Family</a>
-       <a href="planner.html">Planner</a>
-       <a href="aboutus.html">About</a>
+       <!-- <a href="#">Profile</a> -->
+       <a href="/profile">Family</a>
+       <a href="/planner">Planner</a>
+       <a href="/aboutus">About</a>
      </div>
 
      <div id="main">
@@ -147,12 +147,12 @@
 
       </form>
 
-  <form action="/profile" method="get">
+  <!-- <form action="/profile" method="get">
     <input type="submit" name="proButton" value="Profile">
   </form>
   <form class="" action="/planner" method="get">
       <input type="Submit" name="calButton" value="To Planner">
-  </form>
+  </form> -->
 
     {% for member in event %}
      <div style="background-color:{{member.color}}">
