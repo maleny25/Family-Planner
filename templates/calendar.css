@@ -1,0 +1,21 @@
+.event {
+  background-color: skyblue;
+  font-family: "Avenir Next";
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 7px;
+  width: 190px;
+  height: 40px;
+  display: inline;
+  margin-top: 20px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  margin-left: 7%;
+}
+ .title {
+   font-size: 24px;
+   font-family: "Avenir Next";
+   text-align: center;
+   
+ }
