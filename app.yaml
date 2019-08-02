@@ -9,6 +9,8 @@ handlers:
   static_dir: javascript
 - url: /templates
   static_dir: HTML
+# - url: /webspaces
+#   static_dir: webspaces
 - url: /.*
   script: main.app
 
