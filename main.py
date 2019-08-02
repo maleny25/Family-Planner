@@ -183,10 +183,19 @@ class Profile(webapp2.RequestHandler):
     #def get(self):
     #def post(self):
 
+class About_Us(webapp2.RequestHandler):
+    def get(self):
+        about_us_template= the_jinja_env.get_template('templates/aboutus.html')
+        self.response.write(about_us_template).render()
+
+
+
+
 
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
   ('/calendar', Calendar),
   ('/profile', Profile),
+  ('/aboutus', About_Us)
  # ('/planner', Planner)
 ], debug=True)
