@@ -1,10 +1,116 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <link rel="stylesheet" href="projectstyle.css">
     <meta charset="utf-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  body {
+    font-family: "Avenir Next";
+    transition: background-color .5s;
+  }
+
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: skyblue;
+    overflow-x: hidden;
+    transition: 0.2s;
+    padding-top: 100px;
+  }
+
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 30px;
+    color: white;
+    display: block;
+    transition: 0.2s;
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+    opacity: 0.9;
+  }
+
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+  #main {
+    transition: margin-left .5s;
+    padding: 16px;
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+  </style>
+    <title>
+    </title>
   </head>
   <body>
 
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="homepage.html">Home</a>
+      <a href="#">Profile</a>
+      <a href="#">Family</a>
+      <a href="#">Planner</a>
+      <a href="aboutus.html">About</a>
+    </div>
+
+
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+
+    <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+      document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+      document.body.style.backgroundColor = "white";
+    }
+    </script>
+
+  <h1 id = "aboutUsHeader">About Us </h1>
+  <div id = "aboutUs">
+    <div id = "leftPerson">
+      <center> <h2 class = "ourNames"> Emanuel Kassie </h2> </center>
+      <img src = "https://i.ibb.co/6bZ4BDD/Screen-Shot-2019-07-30-at-4-40-55-PM.png" alt = "emanuel_Pic" class = "ourPictures">
+       <center> <p class = "bios"> Emanuel is from Minnesota and will be attending the University of Southern California as a Computer Science and Business major.</p> </center>
+      <a href = "https://www.linkedin.com/in/emanuel-kassie-923b00186"target="_blank"><img src = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="logolinks"> </a>
+      <a href = "https://github.com/emanuelkassie"target="_blank"><img src = "https://image.flaticon.com/icons/svg/25/25231.svg" class="logolinks"> </a>
+    </div>
+
+  <div id = "middlePerson">
+      <center> <h2 class = "ourNames"> Maleny Ruiz </h2> </center>
+      <img src = "https://media.licdn.com/dms/image/C5603AQGnIjUPeLhEBw/profile-displayphoto-shrink_800_800/0?e=1570060800&v=beta&t=hnDAtyxQodd6uT5cfig18Gugp_Na75AbfT95B6AMRuQ" alt = "melany_Pic" class = "ourPictures">
+      <center> <p class = "bios"> Maleny is from California and will be attending the University of California - Berkeley this fall as an intended Computer Science and Film major. </p> </center>
+      <a href = "https://www.linkedin.com/in/maleny-ruiz/"target="_blank"><img src = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="logolinks"> </a>
+      <a href = "https://github.com/maleny25"target="_blank"><img src = "https://image.flaticon.com/icons/svg/25/25231.svg" class="logolinks"> </a>
+    </div>
+
+  <div id = "rightPerson">
+      <center> <h2 class = "ourNames"> Ariel Carter </h2> </center>
+      <img src = "https://media.licdn.com/dms/image/C4D03AQGFrA55CBZ5ng/profile-displayphoto-shrink_800_800/0?e=1570060800&v=beta&t=XIovX2Yo0G-XbPAUG2_QiPhUHfm9ZNseYuyc_tpOvzQ" alt = "ariel_Pic" class = "ourPictures">
+      <center> <p class = "bios"> Ariel will be attending Virginia Tech this fall as a Computational Modeling and Data Analytics major and participant of the Calhoun Discovery Program. </p> </center>
+      <a href = "https://www.linkedin.com/in/ariel-carter-557184185/"target="_blank"><img src = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="logolinks"> </a>
+      <a href = "https://github.com/arielcarter0117"target="_blank"><img src = "https://image.flaticon.com/icons/svg/25/25231.svg" class="logolinks"> </a>
+    </div>
+  </div>
   </body>
 </html>

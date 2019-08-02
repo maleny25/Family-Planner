@@ -59,9 +59,8 @@ body {
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a href="homepage.html">Home</a>
-  <a href="#">Profile</a>
-  <a href="#">Family</a>
-  <a href="#">Planner</a>
+  <a href="profile.html">Profile</a>
+  <a href="planner.html">Planner</a>
   <a href="aboutus.html">About</a>
 </div>
 
@@ -76,7 +75,7 @@ function openNav() {
   document.getElementById("mySidenav").style.width = "250px";
   document.getElementById("main").style.marginLeft = "250px";
   document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-  document.getElementById("hamburger").style.display = "none"
+  document.getElementById("hamburger").style.visibility = "hidden"
 
 }
 
@@ -84,7 +83,7 @@ function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
   document.getElementById("main").style.marginLeft= "0";
   document.body.style.backgroundColor = "white";
-  document.getElementById("hamburger").style.display = "block"
+  document.getElementById("hamburger").style.visibility = "visible"
 
 }
 </script>
