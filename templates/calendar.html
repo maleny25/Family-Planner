@@ -7,7 +7,90 @@
     <!-- <link href="/stylesheets/calendar.css" rel="stylesheet"> -->
     <script src="/javascript/calendar.js"></script>
   </head>
+  <style>
+  body {
+    font-family: "Avenir Next";
+    transition: background-color .5s;
+  }
+
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: skyblue;
+    overflow-x: hidden;
+    transition: 0.2s;
+    padding-top: 100px;
+  }
+
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 30px;
+    color: white;
+    display: block;
+    transition: 0.2s;
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+    opacity: 0.2;
+  }
+
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+  #main {
+    transition: margin-left .5s;
+    padding: 16px;
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+  </style>
    <body>
+
+     <div id="mySidenav" class="sidenav">
+       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+       <a href="homepage.html">Home</a>
+       <a href="#">Profile</a>
+       <a href="#">Family</a>
+       <a href="planner.html">Planner</a>
+       <a href="aboutus.html">About</a>
+     </div>
+
+     <div id="main">
+       <span style="font-size:30px;cursor:pointer" onclick="openNav()" id= "hamburger" >&#9776;</span>
+     </div>
+
+     <script>
+     function openNav() {
+       document.getElementById("mySidenav").style.width = "250px";
+       document.getElementById("main").style.marginLeft = "250px";
+       document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+       document.getElementById("hamburger").style.visibility = "hidden"
+
+     }
+
+     function closeNav() {
+       document.getElementById("mySidenav").style.width = "0";
+       document.getElementById("main").style.marginLeft= "0";
+       document.body.style.backgroundColor = "white";
+       document.getElementById("hamburger").style.visibility = "visible"
+
+     }
+     </script>
+
      <h1 class = "title">Create An Event</h1>
 <!--  <div id="page-body">
      [PERIOD SELECTOR]
@@ -27,33 +110,33 @@
     <p>{{user.first_name}}'s color is <span style="color:{{user.color}}; ">{{user.color}}</span></p>
   {% endfor %}
   <form action="/calendar" method="post">
-        Name of Event:
+        <center> Name of Event: </center>
         <br>
-        <input type="text" name="event_name" value="Event">
+        <input class = "labels" type="text" name="event_name" value="Event">
         <br>
-        Event Start Date:
+        <center> Event Start Date: </center>
         <div id="cal1-date">
           <select id="cal1-day" name="cal1-day"></select>
           <select id="cal1-mth" name="cal1-mth"></select>
           <select id="cal1-yr" name="cal1-yr"></select>
         </div>
-        Event End Date:
+        <center> Event End Date: </center>
         <div id="cal2-date">
           <select id="cal2-day" name="cal2-day"></select>
           <select id="cal2-mth" name="cal2-mth"></select>
           <select id="cal2-yr" name="cal2-yr"></select>
         </div>
-        Select your family member:
+        <center> Select your family member: </center>
         <br>
         <!--change name later  -->
-        <select name="family">
+        <center> <select name="family">
             {% for member in family.members %}
               {% set user=member.get() %}
-               <option value="{{user.first_name}}">{{user.first_name}}</option>
+               <option class = "fam" value="{{user.first_name}}">{{user.first_name}}</option>
             {% endfor %}
               <!-- <option value="all">All</option> -->
 
-        </select>
+        </select> </center>
 
         <!-- <input type="checkbox" name="all_members" value="True">All Members</input> -->
 
