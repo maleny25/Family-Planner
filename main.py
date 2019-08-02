@@ -28,7 +28,7 @@ def load_event (email):
     for member in family.members:
         user=member.get()
         if user:
-            event.extend(Event.query().filter(Event.owner==user.key).filter(Event.event_date>=datetime.datetime.today()))
+            event.extend(Event.query().filter(Event.owner==user.key).filter(Event.event_end>=datetime.datetime.today()))
     event.sort(key=get_date)
     #sort list by date
     return event
@@ -37,10 +37,12 @@ def load_event (email):
 class MainHandler(webapp2.RequestHandler):
   def get(self):
     colors=["Blue", "Brown", "Cyan", "Gold", "Gray", "Green", "Lavendar", "Lime", "Magenta", "Navy", "Orange", "Pink", "Purple","Turquoise", "Red", "Yellow"]
-    current_user = users.get_current_user()
-    if current_user:
+    user_email = users.get_current_user()
+    #email=self.request.get
+
+    if user_email:
       signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
-      email_address = current_user.email()
+      email_address = user_email.email()
       user = User.query().filter(User.email == email_address).get()
       if user:
         self.redirect("/calendar")
@@ -66,8 +68,10 @@ class MainHandler(webapp2.RequestHandler):
 
     else:
       login_url = users.create_login_url('/')
-      login_html_element = '<a href="%s">Sign in</a>' % login_url
-      self.response.write('Please log in.<br>' + login_html_element)
+      # login_html_element = '<a href="%s">Sign in</a>' % login_url
+      # self.response.write('Please log in.<br>' + login_html_element)
+      index_template= the_jinja_env.get_template('templates/index.html')
+      self.response.write(index_template.render(login=login_url))
 
 
   def post(self):
@@ -135,10 +139,6 @@ class Calendar(webapp2.RequestHandler):
         calendar_dict={
         "family": family,
         "event": load_event(users.get_current_user().email()),
-<<<<<<< HEAD
-        # "all_members": all_members,
-=======
->>>>>>> 218303685a6de5c06a674afa443014c75a8d9231
         }
         self.response.write(signout_link_html)
         self.response.write(calendar_template.render(calendar_dict))
@@ -183,23 +183,28 @@ class Profile(webapp2.RequestHandler):
         }
         self.response.write(profile_template.render(profile_dict))
 
-#class Planner(webapp2.RequestHandler):
-    #def get(self):
-    #def post(self):
+class Planner(webapp2.RequestHandler):
+    def get(self):
+        planner_template= the_jinja_env.get_template('templates/planner.html')
+        self.response.write(planner_template.render())
+
 
 class About_Us(webapp2.RequestHandler):
     def get(self):
-        about_us_template= the_jinja_env.get_template('webspaces/aboutus.html')
-        self.response.write(about_us_template).render()
+        about_us_template= the_jinja_env.get_template('templates/aboutus.html')
+        self.response.write(about_us_template.render())
 
 
-
-
+# class Index(webapp2.RequestHandler):
+#     def get(self):
+#         index_template= the_jinja_env.get_template('templates/index.html')
+#         self.response.write(index_template.render())
 
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
   ('/calendar', Calendar),
   ('/profile', Profile),
-  ('/aboutus', About_Us)
- # ('/planner', Planner)
+  ('/aboutus', About_Us),
+  ('/planner', Planner),
+  # ('/index', Index)
 ], debug=True)
