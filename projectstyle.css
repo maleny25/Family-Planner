@@ -1,0 +1,79 @@
+#aboutUs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: white;
+  padding-bottom: 2%;
+  padding-right: 2%;
+  padding-left: 2%;
+
+}
+
+#leftPerson {
+  background-color: skyblue;
+  flex-grow: 1;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  margin-left: 1%;
+  border-radius: 2%;
+  padding-bottom: 2%;
+  padding-left: 2%;
+  padding-right: 2%;
+  width: 33%;
+}
+ #middlePerson {
+   background-color: skyblue;
+   flex-grow: 1;
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   margin-left: 1%;
+   border-radius: 2%;
+   padding-bottom: 2%;
+   padding-left: 2%;
+   padding-right: 2%;
+   width: 33%;
+ }
+
+ #rightPerson {
+   background-color: skyblue;
+   flex-grow: 1;
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   margin-left: 1%;
+   border-radius: 2%;
+   padding-bottom: 2%;
+   padding-left: 2%;
+   padding-right: 2%;
+   width: 33%;
+ }
+
+ #aboutUsHeader {
+   text-align: center;
+ }
+
+ html {
+   background-color: none;
+   color: black;
+   font-family: 'avenir next';
+
+ }
+
+ .logolinks {
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   height: 40px;
+   border-radius: 10%;
+   padding: 2%;
+
+ }
+
+ .logolinks:hover{
+   opacity: 0.7;
+ }
+
+ .ourPictures {
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   height: 350px;
+   width: auto;
+   border-radius: 1%;
+ }
